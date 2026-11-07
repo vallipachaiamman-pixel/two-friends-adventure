@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Two Friends Adventure</title>
+<style>
+body {
+  text-align:center;
+  background:#173b27;
+  color:white;
+  font-family:Arial;
+}
+canvas {
+  background:#8bd36b;
+  border:5px solid white;
+  max-width:95%;
+}
+button {
+  padding:12px;
+  margin:5px;
+  font-size:20px;
+}
+</style>
+</head>
+<body>
+<h1>🌳 Two Friends Adventure 🌳</h1>
+<p>Collect 10 coins together!</p>
+<canvas id="game" width="600" height="350"></canvas>
+<br>
+<button onclick="move(-1)">⬅️</button>
+<button onclick="move(1)">➡️</button>
+<script>
+const c=document.getElementById("game");
+const ctx=c.getContext("2d");
+let x=70, coins=0;
+let coinX=400, coinY=180;
+
+function draw(){
+ ctx.clearRect(0,0,600,350);
+ ctx.font="35px Arial";
+ ctx.fillText("🌳",30,70);
+ ctx.fillText("🌳",500,100);
+ ctx.fillText("🧒",x,220);
+ ctx.fillText("🧒",x+45,220);
+ ctx.fillText("💰",coinX,coinY);
+ ctx.fillStyle="black";
+ ctx.font="20px Arial";
+ ctx.fillText("Coins: "+coins+"/10",20,30);
+ if(x+45>coinX-25 && x<coinX+10){
+  coins++;
+  coinX=80+Math.random()*450;
+  coinY=100+Math.random()*150;
+ }
+ if(coins>=10){
+  ctx.font="30px Arial";
+  ctx.fillText("🏆 YOU WIN!",220,170);
+  return;
+ }
+ requestAnimationFrame(draw);
+}
+function move(d){
+ x=Math.max(0,Math.min(500,x+d*20));
+}
+draw();
+</script>
+</body>
+</html>
